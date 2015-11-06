@@ -23,7 +23,7 @@ under the License.
 
 // BACKGROUND COLORS
 ////////////////////
-$nav-bg: #393939;
+$nav-bg: #fff;
 $examples-bg: #393939;
 $code-bg: #292929;
 $code-annotation-bg: #1c1c1c;
@@ -43,16 +43,16 @@ $search-notice-bg: #c97a7e;
 // TEXT COLORS
 ////////////////////
 $main-text: #333; // main content text color
-$nav-text: #fff;
-$nav-active-text: #fff;
-$lang-select-text: #fff; // color of unselected language tab text
-$lang-select-active-text: #fff; // color of selected language tab text
-$lang-select-pressed-text: #fff; // color of language tab text when mouse is pressed
+$nav-text: #393939;
+$nav-active-text: #393939;
+$lang-select-text: #393939; // color of unselected language tab text
+$lang-select-active-text: #393939; // color of selected language tab text
+$lang-select-pressed-text: #393939; // color of language tab text when mouse is pressed
 
 
 // SIZES
 ////////////////////
-$nav-width: 230px; // width of the navbar
+$nav-width: 330px; // width of the navbar
 $examples-width: 50%; // portion of the screen taken up by code examples
 $logo-margin: 20px; // margin between nav items and logo, ignored if search is active
 $main-padding: 28px; // padding to left and right of content & examples
