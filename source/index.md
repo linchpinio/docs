@@ -13,7 +13,7 @@ toc_footers:
 includes:
   - errors
 
-search: true
+search: false
 ---
 
 # Introduction
@@ -59,6 +59,15 @@ Kittn expects for the API key to be included in all API requests to the server i
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
+
+# Events API
+## Send an Event
+## Send batch
+
+# Search API
+## Run a query
+## Get Last Event from EventType
+## Get Event Count for EventType
 
 # Kittens
 
