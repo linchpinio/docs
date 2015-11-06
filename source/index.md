@@ -4,7 +4,7 @@ title: API Reference
 language_tabs:
   - shell: cURL
   - javascript: JavaScript
-  - php: Php
+  - php: PHP
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -28,16 +28,12 @@ We have examples in cURL, JavaScript, and Php to get you started. You can view c
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+```javascript
+some javascript code
 ```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
+```php
+// some php code
 ```
 
 ```shell
