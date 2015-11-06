@@ -18,13 +18,11 @@ search: false
 
 # Introduction
 
-This is a 4th and last test
+Welcome to the LinchPin API docs! 
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+You can use our API to send and query all types of events happening around your company. You can later use our app or HTML5 sdk to build dashboards and display the most relevant performance indicators of your business.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+We have examples in cURL, JavaScript, and Php to get you started. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 # Authentication
 
