@@ -69,16 +69,27 @@ You can download the latest version of the schema [clicking here](http://search.
 
 Over the next sections we'll explore in more detail every available option on the API.
 
-## Simplest query - Type
+## Running a query
 
 The simplest query we can build specifies only the Event-Type that we want to search.
+
+Try running the examples with one of your EventTypes using curl. You can use the commands to the right.
+
 ```json
 {
-"type": ["rttwyck5"]
+  "type": ["your-event-type"]
 }
 ```
 
-## Run a query
+```shell
+# With curl, just replace your-api-key with your key.
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'{
+    "type":["your-event-type"]
+  }'
+```
+
+
+
 ## Get Last Event from EventType
 ## Get Event Count for EventType
 
