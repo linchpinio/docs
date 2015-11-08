@@ -7,7 +7,6 @@ language_tabs:
   - php: PHP
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -75,7 +74,7 @@ The simplest query we can build specifies only the Event-Type that we want to se
 
 Try running the examples with one of your EventTypes using curl. You can use the commands to the right.
 
->```json
+```
 {
   "type": ["your-event-type"]
 }
@@ -87,6 +86,8 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
     "type":["your-event-type"]
   }'
 ```
+
+
 
 
 
