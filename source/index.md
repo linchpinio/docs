@@ -75,7 +75,7 @@ The simplest query we can build specifies only the Event-Type that we want to se
 
 Try running the examples with one of your EventTypes using curl. You can use the commands to the right.
 
-```json
+>```json
 {
   "type": ["your-event-type"]
 }
