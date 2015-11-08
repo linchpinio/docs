@@ -60,7 +60,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 # Search API
 ## Introduction
 
-The main operation of the search API is of course to execute a query. LinchPin queries are defined using a JSON object that adheres to a JSON Schema. If you're not familiar with the JSON schema spec you can read more about it [here](http://json-schema.org/).
+The main operation of the search API is of course to execute a query. LinchPin queries are defined using a JSON object that adheres to a JSON Schema. If you're not familiar with the JSON schema spec you can read more about it on this link: (http://json-schema.org/).
 
 ## Search Schema
 
@@ -96,6 +96,92 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
   "results": [],
   "count": 12275
 }
+```
+
+## Result size and pagination
+
+First thing we'll add to our query is a property cleverly named "size", which specifies the number of events the will return from the Api. Currently the maximum is 50.
+
+Let's try that.
+
+> Query with size 5
+
+```json
+{
+  "type": ["your-event-type"],
+  "size": 5
+}
+```
+
+```shell
+# With curl, just replace your-api-key with your key.
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'{
+    "type":["your-event-type"],
+    "size": 5
+  }'
+```
+
+Depending on your-event-type your results will have different events, but they should look like the respose to the right.
+
+> JSON response should look like this:
+
+```json
+{
+  "results": [
+    {
+      "CustomerID": "583290",
+      "Price": 67.552,
+      "Qty": 3,
+      "Sku": "SKU0g"
+    },
+    {
+      "CustomerID": "583290",
+      "Price": 67.552,
+      "Qty": 3,
+      "Sku": "SKU0g"
+    },
+    {
+      "CustomerID": "583290",
+      "Price": 67.552,
+      "Qty": 3,
+      "Sku": "SKU0g"
+    },
+    {
+      "CustomerID": "583290",
+      "Price": 67.552,
+      "Qty": 3,
+      "Sku": "SKU0g"
+    },
+    {
+      "CustomerID": "322780",
+      "Price": 77.36,
+      "Qty": 9,
+      "Sku": "SKU5b"
+    }
+  ],
+  "count": 116
+}
+```
+
+The search API always returns the total number of events in your series. If you need to paginate, you can do so, using the "offset" property.
+
+Offset is an `integer` number, and refers to the number of pages that you want to skip. The default value is 0, so you always get the first page.
+
+```json
+{
+  "type": ["your-event-type"],
+  "size": 5,
+  "offset":1
+}
+```
+
+```shell
+# With curl, just replace your-api-key with your key.
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'{
+  "type": ["your-event-type"],
+  "size": 5,
+  "offset":1
+}'
 ```
 
 ## Get Last Event from EventType
