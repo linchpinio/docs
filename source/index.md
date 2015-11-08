@@ -74,7 +74,8 @@ The simplest query we can build specifies only the Event-Type that we want to se
 
 Try running the examples with one of your EventTypes using curl. You can use the commands to the right.
 
-```
+> This is a simple query
+```json
 {
   "type": ["your-event-type"]
 }
@@ -85,6 +86,14 @@ Try running the examples with one of your EventTypes using curl. You can use the
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'{
     "type":["your-event-type"]
   }'
+```
+
+> JSON response should look like this:
+```json
+{
+  "results": [],
+  "count": 12275
+}
 ```
 
 
