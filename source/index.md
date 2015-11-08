@@ -59,6 +59,25 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 ## Send batch
 
 # Search API
+## Introduction
+
+The main operation of the search API is of course to execute a query. LinchPin queries are defined using a JSON object that adheres to a JSON Schema. If you're not familiar with the JSON schema spec you can read more about it [here](http://json-schema.org/).
+
+## Search Schema
+
+You can download the latest version of the schema [clicking here](http://search.linchpin.io/schema).
+
+Over the next sections we'll explore in more detail every available option on the API.
+
+## Simplest query - Type
+
+The simplest query we can build specifies only the Event-Type that we want to search.
+```json
+{
+"type": ["rttwyck5"]
+}
+```
+
 ## Run a query
 ## Get Last Event from EventType
 ## Get Event Count for EventType
