@@ -184,6 +184,62 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 }'
 ```
 
+## Event properties
+
+Sometimes you don't want to explore or return your entire events, specially if they're big objects. To request only specific properties, you can select them using the `event-properties` property on your query.
+
+For example, if your EventType looks like the json object to the right:
+
+```json
+  {
+    "CustomerID": "583290",
+    "Price": 67.552,
+    "Qty": 3,
+    "Sku": "SKU0g"
+  }
+```
+
+And you only want to see our events `Qty` and `Sku` properties, then we can build our query like this:
+
+```json
+{
+    "type":["1xxfqa"],
+    "size": 5,
+    "event-properties":{
+       "include":["Qty","Sku"] 
+    }
+}
+```
+
+Results will look like:
+```json
+{
+  "results": [
+    {
+      "Qty": 3,
+      "Sku": "SKU0g"
+    },
+    {
+      "Qty": 3,
+      "Sku": "SKU0g"
+    },
+    {
+      "Qty": 3,
+      "Sku": "SKU0g"
+    },
+    {
+      "Qty": 3,
+      "Sku": "SKU0g"
+    },
+    {
+      "Qty": 9,
+      "Sku": "SKU5b"
+    }
+  ],
+  "count": 116
+}
+```
+
 ## Get Last Event from EventType
 ## Get Event Count for EventType
 
