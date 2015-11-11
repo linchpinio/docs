@@ -240,6 +240,92 @@ Results will look like:
 }
 ```
 
+## Timeframe
+
+Next, we'll learn how to query events restricted to a specific timeframe. There are two main options to this: use relative time, or use a specific timeframe.
+
+Relative time means we can select events coming in during the last 'X' seconds, minutes, hours, days, weeks, months or years.
+
+To do that, we specifiy a `timeframe` property inside our query object with a string value in the format: `'last_X_seconds'` where X can be replaced by an integer.
+
+You can also replace `'seconds'` by one of the options above like hours or weeks.
+
+You can see some examples on the right.
+
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+{
+    "type":["1xxfqa"],
+    "size": 5,
+    "timeframe":"last_3_days"
+}
+'
+
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+{
+    "type":["1xxfqa"],
+    "size": 5,
+    "timeframe":"last_1_weeks"
+}
+'
+```
+
+Another way of expressing a relative time query, is to use a predefined set of keywords like: 
+
+- "today"
+- "yesterday"
+- "this_week"
+- "last_week"
+- "this_month"
+- "last_month"
+- "this_quarter"
+- "last_quarter"
+- "this_year"
+- "last_year"
+
+This options get a new value at each moment the query gets executed.
+
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+{
+    "type":["1xxfqa"],
+    "size": 5,
+    "timeframe":"this_year"
+}
+'
+```
+
+Another way of expressing a timeframe is to use specific `start` and `end` values and forming an object. Our start and end values should always be expressed in UTC and using the `ISO 8601` format, so they look like this: `2014-09-08T08:02:17.323Z`.
+
+For example a query with start and end timeframe values will looks like: 
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+{
+    "type":["1xxfqa"],
+    "size": 5,
+    "timeframe":{
+      "start":"2015-10-08T00:00:00.000Z",
+      "end":"2015-11-08T00:00:00.000Z"
+    }
+}
+'
+```
+
+To facilitate creating querys where you need a fixed date in the past, and get all events until this moment, then you can use the string `now` as the value for end, like the example on the right.
+
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+{
+    "type":["1xxfqa"],
+    "size": 5,
+    "timeframe":{
+      "start":"2015-01-08T00:00:00.000Z",
+      "end":"now"
+    }
+}
+'
+```
+
 ## Get Last Event from EventType
 ## Get Event Count for EventType
 
