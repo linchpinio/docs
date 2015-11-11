@@ -212,6 +212,7 @@ And you only want to see our events `Qty` and `Sku` properties, then we can buil
 ```
 
 Results will look like:
+
 ```json
 {
   "results": [
@@ -298,6 +299,7 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 Another way of expressing a timeframe is to use specific `start` and `end` values and forming an object. Our start and end values should always be expressed in UTC and using the `ISO 8601` format, so they look like this: `2014-09-08T08:02:17.323Z`.
 
 For example a query with start and end timeframe values will looks like: 
+
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
 {
@@ -322,6 +324,68 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
       "start":"2015-01-08T00:00:00.000Z",
       "end":"now"
     }
+}
+'
+```
+
+## Filters
+
+Filters allow you to select from your events based on a specific property. For example, let's say you're storing sales events and they looked like :
+
+```json
+    {
+      "CustomerID": "583290",
+      "Price": 67.552,
+      "Qty": 3,
+      "Sku": "SKU0g"
+    }
+```
+
+You can write a query to filter and show only the events that match a specific `CustomerID` or a certain `Sku`.
+
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+{
+    "type":["1xxfqa"],
+    "size": 5,
+    "filter": {
+        "property": "Sku",
+        "operator": "match",
+        "value": "SKU5b",
+        "type": "and"
+    }
+}
+'
+```
+
+You're not limited to a single Filter on a query, in fact, you can build an array of filters.
+
+Filters have a property named `type` that can have 3 possible values:
+- and
+- or
+- not
+
+They allow you to specify the boolean logic that the filters will be applied with. It's important to note, that order within the filters array is not important, as every filter is evaluated independently. `and` type filters can be read as `must` filters, meaning every event in the results will meet every `and` filter conditions. When
+
+
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+{
+    "type":["1xxfqa"],
+    "size": 5,
+    "filter": [{
+        "property": "Sku",
+        "operator": "match",
+        "value": "SKU5b",
+        "type": "or"
+    },
+    {
+        "property": "Sku",
+        "operator": "match",
+        "value": "SKU0g",
+        "type": "or"
+    }
+    ]
 }
 '
 ```
