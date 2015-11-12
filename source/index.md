@@ -55,6 +55,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 
 # Events API
 ## Send an Event
+## Send to a public endpoint
 ## Send batch
 
 # Search API
@@ -417,6 +418,29 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 '
 
 ```
+## Behaviors
+
+Behaviors are special flags that you can include with your query object, and they will affect your results object.
+
+### Search By
+
+`search-by` behavior is just a shortcut to sort your results by either CreatedTime or LastUpdateTime. `search-by` takes a string value and only the following keywords are allowed:
+
+- created
+- updated
+
+### include-linchpin-object
+
+`include-linchpin-object` adds the normally "hidden" internal LinchPin object to your results. It is a `boolean` value, so just set it to true to enable it.
+
+### split-by-type
+
+`split-by-type` is a behavior normally used to chart histograms.
+
+### compare-to-previous
+
+`compare-to-previous` is a behavior that allows you query the prior period if you include a timeframe. It's also a `boolean` and it will not affect results if timeframe is not selected.
+
 
 
 
