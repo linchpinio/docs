@@ -254,7 +254,7 @@ You can also replace `'seconds'` by one of the options above like hours or weeks
 You can see some examples on the right.
 
 ```shell
-curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
     "type":["1xxfqa"],
     "size": 5,
@@ -262,7 +262,7 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 }
 '
 
-curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
     "type":["1xxfqa"],
     "size": 5,
@@ -273,21 +273,21 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 
 Another way of expressing a relative time query, is to use a predefined set of keywords like: 
 
-- "today"
-- "yesterday"
-- "this_week"
-- "last_week"
-- "this_month"
-- "last_month"
-- "this_quarter"
-- "last_quarter"
-- "this_year"
-- "last_year"
+- today
+- yesterday
+- this_week
+- last_week
+- this_month
+- last_month
+- this_quarter
+- last_quarter
+- this_year
+- last_year
 
 This options get a new value at each moment the query gets executed.
 
 ```shell
-curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
     "type":["1xxfqa"],
     "size": 5,
@@ -301,7 +301,7 @@ Another way of expressing a timeframe is to use specific `start` and `end` value
 For example a query with start and end timeframe values will looks like: 
 
 ```shell
-curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
     "type":["1xxfqa"],
     "size": 5,
@@ -316,7 +316,7 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 To facilitate creating querys where you need a fixed date in the past, and get all events until this moment, then you can use the string `now` as the value for end, like the example on the right.
 
 ```shell
-curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
     "type":["1xxfqa"],
     "size": 5,
@@ -344,7 +344,7 @@ Filters allow you to select from your events based on a specific property. For e
 You can write a query to filter and show only the events that match a specific `CustomerID` or a certain `Sku`.
 
 ```shell
-curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
     "type":["1xxfqa"],
     "size": 5,
@@ -361,15 +361,16 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 You're not limited to a single Filter on a query, in fact, you can build an array of filters.
 
 Filters have a property named `type` that can have 3 possible values:
-- and
-- or
-- not
 
-They allow you to specify the boolean logic that the filters will be applied with. It's important to note, that order within the filters array is not important, as every filter is evaluated independently. `and` type filters can be read as `must` filters, meaning every event in the results will meet every `and` filter conditions. When
+- must
+- should
+- must_not
+
+They allow you to specify the boolean logic that the filters will be applied with. It's important to note, that order within the filters array is not important, as every filter is evaluated independently. `must` type filters are conditions that are always met, even if you have several of them. They are the equivalent of an `and` logic clause. If you have two or more `should` type filters, then every event in the results will meet at least one of them. Several `should` filters act like `or` clauses. Finally `must_not` filters are also enforced with a negated logic. 
 
 
 ```shell
-curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
     "type":["1xxfqa"],
     "size": 5,
@@ -377,18 +378,47 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
         "property": "Sku",
         "operator": "match",
         "value": "SKU5b",
-        "type": "or"
+        "type": "should"
     },
     {
         "property": "Sku",
         "operator": "match",
         "value": "SKU0g",
-        "type": "or"
+        "type": "should"
     }
     ]
 }
 '
+
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
+{
+    "type":["1xxfqa"],
+    "size": 5,
+        "filter": [{
+        "property": "Sku",
+        "operator": "match",
+        "value": "SKU0g",
+        "type": "must_not"
+    }]
+}
+'
+
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
+{
+    "type":["1xxfqa"],
+    "size": 5,
+        "filter": [{
+        "property": "Qty",
+        "operator": "gt",
+        "value": 5,
+        "type": "must"
+    }]
+}
+'
+
 ```
+
+
 
 ## Get Last Event from EventType
 ## Get Event Count for EventType
