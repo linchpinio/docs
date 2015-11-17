@@ -420,7 +420,7 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 ```
 ## Behaviors
 
-Behaviors are special flags that you can include with your query object, and they will affect your results object.
+Behaviors are special flags that you can include with your query object, and allow you to enhance or alter the structure of your results.
 
 ### Search By
 
@@ -433,16 +433,21 @@ Behaviors are special flags that you can include with your query object, and the
 
 `include-linchpin-object` adds the normally "hidden" internal LinchPin object to your results. It is a `boolean` value, so just set it to true to enable it.
 
-### split-by-type
-
-`split-by-type` is a behavior normally used to chart histograms.
-
 ### compare-to-previous
 
 `compare-to-previous` is a behavior that allows you query the prior period if you include a timeframe. It's also a `boolean` and it will not affect results if timeframe is not selected.
 
+## Facets
 
+### Interval or Date Histogram
 
+### Terms Histogram
+
+### Numeric Histogram
+
+### Ranges Facet
+
+### Stats Facet
 
 ## Get Last Event from EventType
 ## Get Event Count for EventType
