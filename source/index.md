@@ -441,6 +441,46 @@ Behaviors are special flags that you can include with your query object, and all
 
 ### Interval or Date Histogram
 
+The interval facet returns a date-histogram. In its simplest form, it takes only a string declaring the time interval for the buckets.
+
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
+{
+	"type": ["1xxfqa"],
+    "facet": {
+        "interval":"day"
+    }
+}
+'
+```
+
+> Results would look like:
+
+```json
+{
+  "results": [],
+  "count": 116,
+  "buckets": [
+    {
+      "count": 36,
+      "time": "2015-09-29T00:00:00.000"
+    },
+    {
+      "count": 7,
+      "time": "2015-10-04T00:00:00.000"
+    },
+    {
+      "count": 41,
+      "time": "2015-10-11T00:00:00.000"
+    },
+    {
+      "count": 32,
+      "time": "2015-10-18T00:00:00.000"
+    }
+  ]
+}
+````
+
 ### Terms Histogram
 
 ### Numeric Histogram
