@@ -609,7 +609,7 @@ Numeric histograms provide a good shortcut to create a histogram on numeric valu
 For example, if we wanted to a histogram breaking down our `test_sales` event by the `Qty` of items sold in each we would do:
 
 ```shell
-curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
     "type": ["1xxfqa"],
     "timeframe": "this_year",
@@ -663,8 +663,133 @@ If you wanted to have more control over the bucket size, then read on to the nex
 
 As stated above, ranges allow you to control the bucketing for a histogram on numeric values.
 
+Using a `ranges` array, you can specify any numeric range. Every interval takes the form of:
+
+```json
+{"from":2,"to":10}
+```
+
+If the `from` property is ommited, it defaults to 0, and if `to` is ommited, it means to infinity.
+
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
+{
+    "type": ["1xxfqa"],
+    "timeframe": "this_year",
+    "facet": {
+        "property":"Qty",
+        "ranges": [
+            {"from":0,"to":5},
+            {"from":5,"to":7},
+            {"from":7}
+        ]
+    }
+}
+'
+```
+
+> Results
+
+```json
+{
+  "results": [],
+  "count": 116,
+  "buckets": [
+    {
+      "count": 76,
+      "bucket": "from_0_to_5"
+    },
+    {
+      "count": 0,
+      "bucket": "from_5_to_7"
+    },
+    {
+      "count": 40,
+      "bucket": "from_7"
+    }
+  ]
+}
+```
+
+The results object will have an array of buckets matching your custom intervals.
 
 ### Stats Facet
+
+The stats facets returns helpful statistics on a specific `numeric` property.
+
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
+{
+    "type": ["1xxfqa"],
+    "facet": {
+        "stats":"Qty"
+    }
+}
+'
+```
+
+Stats include the following:
+- min - Minimum value
+- max - Maximum value
+- avg - Average value
+- sum - Sum of all values
+- sum_of_squares - Sum of Squares for the series of values
+- variance - The variance for the series of values
+- std_deviation - Standard Deviation for the series of values
+- std_deviaiton_bounds - An object with lower and upper standard deviation bounds for the series of values
+
+> Results
+
+```json
+{
+  "count": 116,
+  "min": 1,
+  "max": 9,
+  "avg": 4.344827586206897,
+  "sum": 504,
+  "sum_of_squares": 3588,
+  "variance": 12.053507728894173,
+  "std_deviation": 3.4718162003329285,
+  "std_deviation_bounds": {
+    "upper": 11.288459986872754,
+    "lower": -2.59880481445896
+  }
+}
+```
+
+You can narrrow the events used to calculate stats on a propery by specifying a timeframe or filters.
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
+{
+    "type": ["1xxfqa"],
+    "timeframe":"last_45_days",
+    "facet": {
+        "stats":"Qty"
+    }
+}
+'
+```
+
+> Result: 
+
+```json
+{
+  "count": 80,
+  "min": 1,
+  "max": 9,
+  "avg": 4.125,
+  "sum": 330,
+  "sum_of_squares": 2280,
+  "variance": 11.484375,
+  "std_deviation": 3.3888604279314896,
+  "std_deviation_bounds": {
+    "upper": 10.90272085586298,
+    "lower": -2.652720855862979
+  }
+}
+```
+
+## Advanced Search Examples
 
 ## Get Last Event from EventType
 ## Get Event Count for EventType
