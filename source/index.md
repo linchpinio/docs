@@ -604,7 +604,65 @@ In this case, our store sold 360 items of `Sku` "SKU5b" in 40 different `test_sa
 
 ### Numeric Histogram
 
+Numeric histograms provide a good shortcut to create a histogram on numeric values just by specifying an integer interval.
+
+For example, if we wanted to a histogram breaking down our `test_sales` event by the `Qty` of items sold in each we would do:
+
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer 79dd2563905af91fa8011486cd911b25f7af151b" -d'
+{
+    "type": ["1xxfqa"],
+    "timeframe": "this_year",
+    "facet": {
+        "histogram": {
+            "property":"Qty",
+            "interval":2
+        }
+    }
+}
+'
+```
+
+The results will automatically create buckets with an incremenet of 2 between them.
+
+> Results:
+```json
+{
+  "results": [],
+  "count": 116,
+  "buckets": [
+    {
+      "count": 42,
+      "bucket": 0
+    },
+    {
+      "count": 34,
+      "bucket": 2
+    },
+    {
+      "count": 0,
+      "bucket": 4
+    },
+    {
+      "count": 0,
+      "bucket": 6
+    },
+    {
+      "count": 40,
+      "bucket": 8
+    }
+  ]
+}
+```
+
+Bucket values represent a range. For instance bucket:0, the range 0-2, bucket:2, the range 2-4, and so on.
+
+If you wanted to have more control over the bucket size, then read on to the next section on Ranges.
+
 ### Ranges Facet
+
+As stated above, ranges allow you to control the bucketing for a histogram on numeric values.
+
 
 ### Stats Facet
 
