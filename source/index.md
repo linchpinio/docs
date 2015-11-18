@@ -204,7 +204,7 @@ And you only want to see our events `Qty` and `Sku` properties, then we can buil
 
 ```json
 {
-    "type":["1xxfqa"],
+    "type":["test_sales"],
     "size": 5,
     "event-properties":{
        "include":["Qty","Sku"] 
@@ -257,7 +257,7 @@ You can see some examples on the right.
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type":["1xxfqa"],
+    "type":["test_sales"],
     "size": 5,
     "timeframe":"last_3_days"
 }
@@ -265,7 +265,7 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type":["1xxfqa"],
+    "type":["test_sales"],
     "size": 5,
     "timeframe":"last_1_weeks"
 }
@@ -290,7 +290,7 @@ This options get a new value at each moment the query gets executed.
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type":["1xxfqa"],
+    "type":["test_sales"],
     "size": 5,
     "timeframe":"this_year"
 }
@@ -304,7 +304,7 @@ For example a query with start and end timeframe values will looks like:
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type":["1xxfqa"],
+    "type":["test_sales"],
     "size": 5,
     "timeframe":{
       "start":"2015-10-08T00:00:00.000Z",
@@ -319,7 +319,7 @@ To facilitate creating querys where you need a fixed date in the past, and get a
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type":["1xxfqa"],
+    "type":["test_sales"],
     "size": 5,
     "timeframe":{
       "start":"2015-01-08T00:00:00.000Z",
@@ -347,7 +347,7 @@ You can write a query to filter and show only the events that match a specific `
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type":["1xxfqa"],
+    "type":["test_sales"],
     "size": 5,
     "filter": {
         "property": "Sku",
@@ -373,7 +373,7 @@ They allow you to specify the boolean logic that the filters will be applied wit
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type":["1xxfqa"],
+    "type":["test_sales"],
     "size": 5,
     "filter": [{
         "property": "Sku",
@@ -393,7 +393,7 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type":["1xxfqa"],
+    "type":["test_sales"],
     "size": 5,
         "filter": [{
         "property": "Sku",
@@ -406,7 +406,7 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type":["1xxfqa"],
+    "type":["test_sales"],
     "size": 5,
         "filter": [{
         "property": "Qty",
@@ -490,7 +490,7 @@ For instance, in our `test_sales` events, you might want to understand the numbe
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-	"type": ["1xxfqa"],
+	"type": ["test_sales"],
     "facet": {
         "terms":{
            "property":"Sku",
@@ -534,7 +534,7 @@ If you wanted to get the sum of the total no. of items sold, you will need to bu
 
 ```json
 {
-    "type": ["1xxfqa"],
+    "type": ["test_sales"],
     "facet": {
         "terms":{
            "property":"Sku",
@@ -559,7 +559,7 @@ Instead of a `sum`, other possible values for aggregation are:
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type": ["1xxfqa"],
+    "type": ["test_sales"],
     "facet": {
         "terms":{
            "property":"Sku",
@@ -611,7 +611,7 @@ For example, if we wanted to a histogram breaking down our `test_sales` event by
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type": ["1xxfqa"],
+    "type": ["test_sales"],
     "timeframe": "this_year",
     "facet": {
         "histogram": {
@@ -674,7 +674,7 @@ If the `from` property is ommited, it defaults to 0, and if `to` is ommited, it 
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type": ["1xxfqa"],
+    "type": ["test_sales"],
     "timeframe": "this_year",
     "facet": {
         "property":"Qty",
@@ -720,7 +720,7 @@ The stats facets returns helpful statistics on a specific `numeric` property.
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type": ["1xxfqa"],
+    "type": ["test_sales"],
     "facet": {
         "stats":"Qty"
     }
@@ -761,7 +761,7 @@ You can narrrow the events used to calculate stats on a propery by specifying a 
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-    "type": ["1xxfqa"],
+    "type": ["test_sales"],
     "timeframe":"last_45_days",
     "facet": {
         "stats":"Qty"
