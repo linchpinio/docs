@@ -446,7 +446,7 @@ The interval facet returns a date-histogram. In its simplest form, it takes only
 ```shell
 curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
 {
-	"type": ["1xxfqa"],
+	"type": ["sales"],
     "facet": {
         "interval":"day"
     }
@@ -482,6 +482,125 @@ curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/js
 ````
 
 ### Terms Histogram
+
+Sometimes you need to create a histogram but instead of grouping events by a numeric range, you want buckets of distinct string values of a property. 
+
+For instance, in our `test_sales` events, you might want to understand the number of sales per `Sku` or get the top 3 selling `Sku`'s.
+
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
+{
+	"type": ["1xxfqa"],
+    "facet": {
+        "terms":{
+           "property":"Sku",
+           "size":3
+        }
+    }
+}
+'
+```
+
+```json
+{
+  "results": [],
+  "count": 116,
+  "buckets": [
+    {
+      "count": 34,
+      "term": "SKU0g"
+    },
+    {
+      "count": 40,
+      "term": "SKU5b"
+    },
+    {
+      "count": 42,
+      "term": "7WYVRT"
+    }
+  ]
+}
+```
+
+Results include a `count` property with the total number of events, in this case, 116.
+
+Results also return a buckets array with two properties each: `count` and `term`. `count` is the number of events in that bucket, and `term` is the property value for that bucket. In this case, "SKU0g" is the value of 34 `test_sales` events.
+
+With this information you can build a pareto or a pie chart.
+
+You may have noticed that `count` in the previous query refers to the number of `test_sales` events and not the quantity of items sold that is specified in the `Qty` property of our events.
+
+If you wanted to get the sum of the total no. of items sold, you will need to build your query as follows:
+
+```json
+{
+    "type": ["1xxfqa"],
+    "facet": {
+        "terms":{
+           "property":"Sku",
+           "size":3,
+           "aggregation":{
+	           "property":"Qty",
+	           "aggregation":"sum"
+           }
+        }
+    }
+}
+
+```
+
+By adding an `aggregation` object inside our terms facet, we can alter our results to include a `value` property inside each bucket, that specifies the `sum` of `Qty` property values for each bucket. 
+
+Instead of a `sum`, other possible values for aggregation are:
+- avg
+- min
+- max
+
+```shell
+curl -XPOST "https://search.linchpin.io/search" -H "Content-type: application/json" -H "Authorization: Bearer your-api-key" -d'
+{
+    "type": ["1xxfqa"],
+    "facet": {
+        "terms":{
+           "property":"Sku",
+           "size":3,
+           "aggregation":{
+	           "property":"Qty",
+	           "aggregation":"sum"
+           }
+        }
+    }
+}
+'
+```
+
+> Result
+
+```json
+{
+  "results": [],
+  "count": 116,
+  "buckets": [
+    {
+      "count": 42,
+      "value": 42,
+      "term": "7WYVRT"
+    },
+    {
+      "count": 34,
+      "value": 102,
+      "term": "SKU0g"
+    },
+    {
+      "count": 40,
+      "value": 360,
+      "term": "SKU5b"
+    }
+  ]
+}
+```
+
+In this case, our store sold 360 items of `Sku` "SKU5b" in 40 different `test_sale` events.
 
 ### Numeric Histogram
 
